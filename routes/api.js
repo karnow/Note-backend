@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const testActions = require('./actionsApi/test');
 
 
-
-router.get('/', function (request, response) {
-    response.send('Serwer działa');
-})
-router.get('/karol', function (request, response) {
-    response.send('podstrona karol działa');
-})
+router.get('/', testActions.homepage);
+router.get('/karol', testActions.page);
 
 
 
