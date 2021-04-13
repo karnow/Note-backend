@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { database } = require('../config');
 
-mongoose.connect('mongodb://127.0.0.1:27017/notes-app', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(database, { useNewUrlParser: true, useUnifiedTopology: true });
 
