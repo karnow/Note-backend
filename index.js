@@ -3,10 +3,11 @@ const app = express();
 const { port } = require('./config');
 const apiRouter = require('./routes/api');
 
+//db wczytanie ppliku i utworzenie polaczenia z baza
+require('./db/mongoose');
 
 //routes
-
-app.use('/', apiRouter);
+// app.use('/', apiRouter);
 
 
 
