@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const testActions = require('./actionsApi/test');
+const noteActions = require('../actionsApi/notes');
 
 
-router.get('/', testActions.homepage);
-router.get('/karol', testActions.page);
+router.get('/', noteActions.saveNote);
+
 
 
 
