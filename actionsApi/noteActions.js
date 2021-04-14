@@ -29,16 +29,16 @@ class noteActions {
     async saveNote(request, response) {
         const title = request.body.title;
         const body = request.body.body;
-    
-        const newNote = new Note({
-            title: title,
-            body: body
-        });
+        let newNote;
         try {
+            newNote = new Note({
+                title: title,
+                body: body
+            });
             await newNote.save();
         }
         catch (err) {
-            return response.status(500).json({ message: err.message });
+            return response.status(422).json({ message: err.message });
         }
         response.status(201).json(newNote);
     }
