@@ -1,16 +1,19 @@
 // const { response } = require('express')
-const Note = require('../db/models/note')
+const Note = require('../db/models/note');
+
 
 class noteActions {
     saveNote(request, response) {
-    const newNote = new Note({
-            title: 'zakupy',
-            body: 'mleko, jaja ,chleb'
-        });
-    newNote.save().then(() => {
-            console.log('notatka została zapisana')
-        }),
-    response.send('Strona działa')
+    // const newNote = new Note({
+    //         title: 'zakupy',
+    //         body: 'mleko, jaja ,chleb'
+    //     });
+    //     newNote.save().then(() => {
+    //         console.log('notatka została zapisana')
+    //     });
+        const title = request.body.title;
+        const body = request.body.body;
+        response.send('notatka zapisana, title:' + title + ' body:' + body);
     }
 
     getAllNotes(request, response) {
@@ -18,15 +21,17 @@ class noteActions {
     }
 
     getNote(request, response) {
-        response.send('..');
+        response.send('notatka pobrana');
     }
 
     updateNote(request, response) {
-        response.send('..');
+        response.send('notatka zaktualizowana');
     }
 
     deleteNote(request, response) {
-        response.send('..');
+        const id = request.params.id;
+        
+        response.send('notatka skasowana. ID: '+ id);
     }
     
 }
