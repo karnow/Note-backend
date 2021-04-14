@@ -25,28 +25,46 @@ class noteActions {
         }
         response.status(200).json(result);
     }
-    saveNote(request, response) {
-    // const newNote = new Note({
-    //         title: 'zakupy',
-    //         body: 'mleko, jaja ,chleb'
-    //     });
-    //     newNote.save().then(() => {
-    //         console.log('notatka została zapisana')
-    //     });
+
+    async saveNote(request, response) {
         const title = request.body.title;
         const body = request.body.body;
-        response.send('notatka zapisana, title:' + title + ' body:' + body);
+    
+        const newNote = new Note({
+            title: title,
+            body: body
+        });
+        try {
+            await newNote.save();
+        }
+        catch (err) {
+            return response.status(500).json({ message: err.message });
+        }
+        response.status(201).json(newNote);
     }
 
-
-    updateNote(request, response) {
-        response.send('notatka zaktualizowana');
-    }
-
-    deleteNote(request, response) {
+    async updateNote(request, response) {
         const id = request.params.id;
+        const title = request.body.title;
+        const body = request.body.body;
+
+        const finedNote = await Note.findOne({ _id: id })
+        finedNote.title = title;
+        finedNote.body = body;
+        await finedNote.save();
         
-        response.send('notatka skasowana. ID: '+ id);
+        response.status(201).json(finedNote);
+    }
+
+    async deleteNote(request, response) {
+        const id = request.params.id;
+        try {
+         await Note.deleteOne({_id: id})
+        }
+        catch (err) {
+            return response.status(500).json({ message: err.message });
+        }
+        response.status(204).send();
     }
     
 }
